@@ -4,36 +4,36 @@ import {
   Text,
   View,
   Button,
-  TextInput,
+  AsyncStorage,
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
+import SignIn from './components/SignIn'
+import SignUp from './components/SignUp'
 import Content from './components/Content'
-import Async from './components/Async'
+
+const token = AsyncStorage.getItem('token')
+
 class Home extends React.Component {
   constructor(props){
     super(props);
-    this.state = {
-      email: '',
-    }
+    this.state = { email: token ? `Welcome ${JSON.stringify(token)}` : 'Please Sign In Hacker' }
   }
   static navigationOptions = {
-    title: 'Home Page',
+    title: 'Home',
   }
   render() {
     return(
       <View style={styles.container}>
-        <TextInput 
-          onChangeText={(email) => this.setState({email})}
-          value={this.state.email}/>
+        <Text>{this.state.email}</Text>
         <Button
-          title={'View Content'}
+          title={'Sign In'}
           onPress={() => {
-            this.props.navigation.navigate('Content');
+            this.props.navigation.navigate('SignIn');
           }} />
           <Button
-          title={'View Async'}
+          title={'Sign Up'}
           onPress={() => {
-            this.props.navigation.navigate('Async');
+            this.props.navigation.navigate('SignUp');
           }} />
       </View>
     )
@@ -50,8 +50,9 @@ class Home extends React.Component {
 
   const Routes =  StackNavigator({
     Home: { screen: Home },
-    Content: { screen: Content},
-    Async: { screen: Async }
+    SignIn: { screen: SignIn},
+    SignUp: { screen: SignUp },
+    Content: { screen: Content },
   })
-  
+
 export default Routes
