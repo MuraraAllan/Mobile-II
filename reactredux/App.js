@@ -11,14 +11,15 @@ import Home from './components/Home'
 import SignIn from './components/SignIn'
 import SignUp from './components/SignUp'
 import Content from './components/Content'
+import reducers from './components/reducers'
 
 const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
 
 class App extends React.Component {
   render() {
     return (
-      <Provider store={createStoreWithMiddleware()}> 
-        <Home/>
+      <Provider store={createStoreWithMiddleware(reducers)}> 
+        <Routes />
       </Provider>
     );
   }
@@ -31,4 +32,6 @@ const Routes =  StackNavigator({
   Content: { screen: Content }
 })
 
-export default Routes
+Expo.registerRootComponent(App);
+
+export default App

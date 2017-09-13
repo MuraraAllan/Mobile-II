@@ -5,8 +5,9 @@ import {
   Button } from 'react-native';
 import SignIn from './SignIn'
 import SignUp from './SignUp'
+import { connect } from 'react-redux';
 
-export default class Home extends React.Component{
+class Home extends React.Component{
   constructor(props){
     super(props);
   }
@@ -23,3 +24,11 @@ export default class Home extends React.Component{
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth
+  }
+}
+
+export default connect(mapStateToProps)(Home);
